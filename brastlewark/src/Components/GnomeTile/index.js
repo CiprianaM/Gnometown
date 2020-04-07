@@ -1,12 +1,13 @@
 import React from "react";
+import "./styles.css";
 
 export default function GnomeTile (props) {
   return (
-    <div>
-      <h4>{props.name}</h4>
-      <img alt="gnome-img" src={props.thumbnail}/>
-      <p>Proffessions: {props.professions}</p>
-      <p>Friends: {props.friends}</p>
+    <div className="gnome_container">
+      <img alt="gnome-img" src={props.thumbnail} className="gnome_img"/>
+      <div className="gnome_headline">
+      <p className="gnome_headline_title">{props.name}</p>
+      </div>
     </div>
   )
 }
