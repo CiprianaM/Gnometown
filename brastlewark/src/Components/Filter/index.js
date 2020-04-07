@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
 import TagFacesIcon from '@material-ui/icons/TagFaces';
+import {GnomeContext} from "../../App";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,17 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ChipsArray() {
   const classes = useStyles();
-  const [chipData, setChipData] = React.useState([
-    { key: 0, label: 'Gnome', clicked: false },
-    { key: 1, label: 'Gnomette', clicked: false },
-    { key: 2, label: 'Has jobs', clicked: false },
-    { key: 3, label: 'Has friends', clicked: false },
-  ]);
-
-  const handleClick = (clickedChip) => () => {
-    setChipData((chips) => chips.map((chip) => chip.key !== clickedChip.key ? chip : {...chip, clicked: !chip.clicked}));
-  };
-
+  const {chipData, handleClick} =useContext(GnomeContext);
   return (
     <Paper className={classes.root}>
       {chipData.map((data) => {

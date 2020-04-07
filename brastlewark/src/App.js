@@ -18,12 +18,22 @@ function App() {
     }
   });
   const [gnomes, setGnomes] = useState([]);
+  const [chipData, setChipData] = React.useState([
+    { key: 0, label: 'Gnome', clicked: false },
+    { key: 1, label: 'Gnomette', clicked: false },
+    { key: 2, label: 'Has jobs', clicked: false },
+    { key: 3, label: 'Has friends', clicked: false },
+  ]);
+
+  const handleClick = (clickedChip) => () => {
+    setChipData((chips) => chips.map((chip) => chip.key !== clickedChip.key ? chip : {...chip, clicked: !chip.clicked}));
+  };
   useEffect(()=> {
     ApiClient.getAllGnomes()
   .then(gnomes => setGnomes(gnomes)
   )}, [])
   return (
-      <GnomeContext.Provider value={gnomes}>
+      <GnomeContext.Provider value={({gnomes, chipData, handleClick})}>
         <MuiThemeProvider theme={myTheme}>
             <div className="App">
               <Navbar />
