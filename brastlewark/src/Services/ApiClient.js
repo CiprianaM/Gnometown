@@ -1,4 +1,3 @@
-'use strict'
 
 const BASE_URL = 'https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json';
 const CACHE_URL ='';
@@ -8,7 +7,7 @@ export default {
     return fetchRequest(BASE_URL);
   },
   getDetails: (id) => {
-    return fetchDetails(`${CACHE_URL}/${id}`)
+    return fetchRequest(`${CACHE_URL}/${id}`)
   }
 };
 
