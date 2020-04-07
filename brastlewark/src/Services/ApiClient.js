@@ -6,6 +6,9 @@ export default {
   getAllGnomes: () => {
     return fetchRequest(BASE_URL);
   },
+  getGnomeImage: (imageUrl) => {
+    return fetchRequest(imageUrl)
+  },
   getDetails: (id) => {
     return fetchRequest(`${CACHE_URL}/${id}`)
   }
