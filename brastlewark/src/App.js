@@ -1,24 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
 import './App.css';
+import GnomeList from "./Components/GnomeList";
+import ApiClient from "./Services/ApiClient";
 
 function App() {
+  const [gnomes, setGnomes] = useState([]);
+  useEffect(()=> {
+    ApiClient.getAllGnomes()
+  .then(gnomes => setGnomes(gnomes)
+  )}, [])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <GnomeList gnomes={gnomes} />
     </div>
   );
 }
