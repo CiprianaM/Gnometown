@@ -1,0 +1,16 @@
+.tile_container{
+  display: flex;
+  flex-wrap: nowrap;
+  margin-bottom: 5vh;
+  padding-left: 5vw;
+  overflow-y: hidden;
+  overflow-x: auto;
+  align-items: center;
+}
+.tile_cont {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  /* text-align: center; */
+}

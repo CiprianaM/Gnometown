@@ -1,11 +1,12 @@
 import React from "react";
 import GnomeTile from "../GnomeTile";
+import "./styles.css";
 
 export default function GnomeList ({gnomes}) {
   return (
-    <ul>
+    <div className="tile_cont">
       {gnomes.Brastlewark ?
-        gnomes.Brastlewark.slice(0, 20).map(gnome => (
+        gnomes.Brastlewark.slice(0, 50).map(gnome => (
         <GnomeTile
           key={gnome.id}
           name={gnome.name}
@@ -15,6 +16,6 @@ export default function GnomeList ({gnomes}) {
         />)) :
         "Still loading..."
       }
-    </ul>
+    </div>
   )
 }
