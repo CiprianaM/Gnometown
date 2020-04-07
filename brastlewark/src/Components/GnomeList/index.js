@@ -1,17 +1,14 @@
-import React, {useState} from "react";
+import React from "react";
 import GnomeTile from "../GnomeTile";
+
 import Spinner from "../Spinner";
 import "./styles.css";
 
 export default function GnomeList ({gnomes}) {
-  // const [gender, setGender]=useState('');
-
   function decideGender (gnome) {
     const {name} = gnome;
     const firstName = name.split(' ')[0]
     const vowels = ['a', 'e', 'i', 'o', 'u'];
-    // const gender = vowels.indexOf(firstName[firstName.length-1])
-    // console.log(firstName, gender)
     const gender = vowels.indexOf(firstName[firstName.length-1])>=0 ? 'Gnomette' : 'Gnome';
     return gender
   }
