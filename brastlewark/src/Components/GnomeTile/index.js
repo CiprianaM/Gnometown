@@ -1,7 +1,10 @@
-import React from "react";
+import React, {useContext} from "react";
+import {GnomeContext} from "../../App";
 import "./styles.css";
 
 export default function GnomeTile (props) {
+  const context = useContext(GnomeContext);
+  console.log(context)
   return (
     <div className="gnome_container">
       <img alt="gnome-img" src={props.thumbnail} className="gnome_img"/>
