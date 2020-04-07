@@ -1,5 +1,6 @@
 import React from "react";
 import GnomeTile from "../GnomeTile";
+import Spinner from "../Spinner";
 import "./styles.css";
 
 export default function GnomeList ({gnomes}) {
@@ -14,7 +15,7 @@ export default function GnomeList ({gnomes}) {
           professions={gnome.friends.length}
           friends={gnome.friends.length}
         />)) :
-        "Still loading..."
+        <Spinner />
       }
     </div>
   )
