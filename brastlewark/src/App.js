@@ -23,7 +23,6 @@ function App() {
   const [chipData, setChipData] = React.useState([
     { key: 0, label: 'Has jobs', selected: false, gnomeField: "professions" },
     { key: 1, label: 'Has friends', selected: false, gnomeField: "friends" },
-    { key: 2, label: 'Is fluffy', selected: false, gnomeField: "weight" },
   ]);
 
   const handleClick = (clickedChip) => () => {
@@ -37,15 +36,10 @@ function App() {
     }))
   };
 
-  const isFluffy = (weight) => {
-    return weight>100
-  }
-
   const handleFilter = () => {
     const [{gnomeField}] = chipData.filter(chip => chip.selected);
-    setFilteredGnomes(gnomes.Brastlewark.filter(gnome => Array.isArray(gnome[gnomeField]) ? gnome[gnomeField].length>0 : isFluffy(gnome[gnomeField])))
+    setFilteredGnomes(gnomes.Brastlewark.filter(gnome => gnome[gnomeField].length>0))
   }
-  console.log(filteredGnomes)
 
   useEffect(()=> {
     ApiClient.getAllGnomes()
