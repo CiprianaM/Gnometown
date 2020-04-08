@@ -17,6 +17,7 @@ function App() {
      "fontWeightMedium": 500
     }
   });
+
   const [gnomes, setGnomes] = useState([]);
   const [filteredGnomes, setFilteredGnomes] = useState([]);
   const [filtered, setFiltered] = useState(false);
@@ -38,27 +39,32 @@ function App() {
 
   const handleFilter = () => {
     const [{gnomeField}] = chipData.filter(chip => chip.selected);
-    setFilteredGnomes(gnomes.Brastlewark.filter(gnome => gnome[gnomeField].length>0))
+    setFilteredGnomes(gnomes.filter(gnome => gnome[gnomeField].length>0))
   }
 
   useEffect(()=> {
-    ApiClient.getAllGnomes()
-  .then(gnomes =>{
-    setGnomes(gnomes);
-    setFilteredGnomes(gnomes.Brastlewark);
+    const cachedResults = localStorage.getItem('myData');
+    if (cachedResults) {
+      setFilteredGnomes(JSON.parse(cachedResults));
+      setGnomes(JSON.parse(cachedResults));
+    } else {
+      ApiClient.getAllGnomes()
+      .then(gnomes => {
+        setGnomes(gnomes.Brastlewark);
+        setFilteredGnomes(gnomes.Brastlewark);
+      })
+    }
+  }, []);
 
-  }
-  )}, []);
-
-  useEffect(() => filtered? handleFilter() : setFilteredGnomes(gnomes)
-    , [filtered, chipData])
+  useEffect(() => filtered? handleFilter() : (gnomes)=>setFilteredGnomes(gnomes)
+    , [filtered])
 
   return (
       <GnomeContext.Provider value={({gnomes, chipData, handleClick, filteredGnomes})}>
         <MuiThemeProvider theme={myTheme}>
             <div className="App">
               <Navbar />
-              <GnomeList gnomes={gnomes} />
+              <GnomeList />
             </div>
         </MuiThemeProvider>
       </GnomeContext.Provider>
