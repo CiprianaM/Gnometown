@@ -18,22 +18,49 @@ function App() {
     }
   });
   const [gnomes, setGnomes] = useState([]);
+  const [filteredGnomes, setFilteredGnomes] = useState([]);
+  const [filtered, setFiltered] = useState(false);
   const [chipData, setChipData] = React.useState([
-    { key: 0, label: 'Gnome', clicked: false },
-    { key: 1, label: 'Gnomette', clicked: false },
-    { key: 2, label: 'Has jobs', clicked: false },
-    { key: 3, label: 'Has friends', clicked: false },
+    { key: 0, label: 'Has jobs', selected: false, gnomeField: "professions" },
+    { key: 1, label: 'Has friends', selected: false, gnomeField: "friends" },
+    { key: 2, label: 'Is fluffy', selected: false, gnomeField: "weight" },
   ]);
 
   const handleClick = (clickedChip) => () => {
-    setChipData((chips) => chips.map((chip) => chip.key !== clickedChip.key ? chip : {...chip, clicked: !chip.clicked}));
+    setChipData((chips) => chips.map((chip) => {
+      if (chip.key !== clickedChip.key) {
+        return {...chip, selected: false}
+      }else {
+        setFiltered(!chip.selected);
+        return {...chip, selected: !chip.selected}
+      }
+    }))
   };
+
+  const isFluffy = (weight) => {
+    return weight>100
+  }
+
+  const handleFilter = () => {
+    const [{gnomeField}] = chipData.filter(chip => chip.selected);
+    setFilteredGnomes(gnomes.Brastlewark.filter(gnome => Array.isArray(gnome[gnomeField]) ? gnome[gnomeField].length>0 : isFluffy(gnome[gnomeField])))
+  }
+  console.log(filteredGnomes)
+
   useEffect(()=> {
     ApiClient.getAllGnomes()
-  .then(gnomes => setGnomes(gnomes)
-  )}, [])
+  .then(gnomes =>{
+    setGnomes(gnomes);
+    setFilteredGnomes(gnomes.Brastlewark);
+
+  }
+  )}, []);
+
+  useEffect(() => filtered? handleFilter() : setFilteredGnomes(gnomes)
+    , [filtered, chipData])
+
   return (
-      <GnomeContext.Provider value={({gnomes, chipData, handleClick})}>
+      <GnomeContext.Provider value={({gnomes, chipData, handleClick, filteredGnomes})}>
         <MuiThemeProvider theme={myTheme}>
             <div className="App">
               <Navbar />
