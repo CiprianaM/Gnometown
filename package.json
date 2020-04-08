@@ -19,6 +19,7 @@
   "dependencies": {
     "@material-ui/core": "^4.9.9",
     "@material-ui/icons": "^4.9.1",
+    "node-cache": "^5.1.0",
     "react-lazy-load-image-component": "^1.4.3"
   }
 }
