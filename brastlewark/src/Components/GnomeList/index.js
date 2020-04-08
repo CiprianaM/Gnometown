@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import GnomeTile from "../GnomeTile";
+import {GnomeContext} from "../../App";
 
 import Spinner from "../Spinner";
 import "./styles.css";
 
 export default function GnomeList ({gnomes}) {
+  const {filteredGnomes} = useContext(GnomeContext);
+  console.log(filteredGnomes, 'ff')
   function decideGender (gnome) {
     const {name} = gnome;
     const firstName = name.split(' ')[0]
@@ -15,8 +18,9 @@ export default function GnomeList ({gnomes}) {
 
   return (
     <div className="tile_cont">
-      {gnomes.Brastlewark ?
-        gnomes.Brastlewark.slice(0, 50).map(gnome => (
+      {filteredGnomes.length ?
+        filteredGnomes.slice(0, 50).map(gnome => {
+          return (
         <GnomeTile
           key={gnome.id}
           name={gnome.name}
@@ -24,7 +28,7 @@ export default function GnomeList ({gnomes}) {
           professions={gnome.friends.length}
           friends={gnome.friends.length}
           gender={decideGender(gnome)}
-        />)) :
+        />)}) :
         <Spinner />
       }
     </div>
