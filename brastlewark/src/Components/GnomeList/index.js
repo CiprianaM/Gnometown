@@ -6,7 +6,7 @@ import Spinner from "../Spinner";
 import "./styles.css";
 
 export default function GnomeList () {
-  const {gnomes, extendedGnomes} = useContext(GnomeContext);
+  const {filteredGnomes} = useContext(GnomeContext);
   function decideGender (gnome) {
     const {name} = gnome;
     const firstName = name.split(' ')[0]
@@ -17,30 +17,19 @@ export default function GnomeList () {
 
   return (
     <div className="tile_cont">
-      {extendedGnomes.length ?
-        extendedGnomes.map(gnome => {
+      {
+        filteredGnomes.length ?
+        filteredGnomes.map(gnome => {
           return (
-        <GnomeTile
-          key={gnome.id}
-          id={gnome.id}
-          name={gnome.name}
-          thumbnail={gnome.thumbnail}
-          professions={gnome.friends.length}
-          friends={gnome.friends.length}
-          gender={decideGender(gnome)}
-        />)}) :
-        gnomes.length ?
-        gnomes.map(gnome => {
-          return (
-        <GnomeTile
-          key={gnome.id}
-          id={gnome.id}
-          name={gnome.name}
-          thumbnail={gnome.thumbnail}
-          professions={gnome.friends.length}
-          friends={gnome.friends.length}
-          gender={decideGender(gnome)}
-        />)}) :
+            <GnomeTile
+              key={gnome.id}
+              id={gnome.id}
+              name={gnome.name}
+              thumbnail={gnome.thumbnail}
+              professions={gnome.friends.length}
+              friends={gnome.friends.length}
+              gender={decideGender(gnome)}
+            />)}) :
         <Spinner />
       }
     </div>
