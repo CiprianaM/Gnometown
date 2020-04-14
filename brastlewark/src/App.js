@@ -18,7 +18,6 @@ function App() {
     }
   });
 
-  const [gnomes, setGnomes] = useState([]);
   const [extendedGnomes, setExtendedGnomes] = useState([]);
   const [filteredGnomes, setFilteredGnomes] = useState('');
 
@@ -47,7 +46,7 @@ function App() {
   }, [extendedGnomes])
 
   return (
-      <GnomeContext.Provider value={({gnomes, handleChange, filteredGnomes, extendedGnomes})}>
+      <GnomeContext.Provider value={({handleChange, filteredGnomes, extendedGnomes})}>
         <MuiThemeProvider theme={myTheme}>
             <div className="App">
               <Navbar />
