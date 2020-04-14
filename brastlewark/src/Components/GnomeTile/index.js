@@ -1,10 +1,9 @@
-import React, {useContext} from "react";
+import React from "react";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import {GnomeContext} from "../../App";
 import "./styles.css";
 
 export default function GnomeTile (props) {
-  const context = useContext(GnomeContext);
+  // console.log(props.id)
   return (
     <div className="gnome_container">
       <LazyLoadImage
