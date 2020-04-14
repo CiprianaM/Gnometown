@@ -3,7 +3,6 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import "./styles.css";
 
 export default function GnomeTile (props) {
-  // console.log(props.id)
   return (
     <div className="gnome_container">
       <LazyLoadImage
