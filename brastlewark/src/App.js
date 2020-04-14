@@ -19,48 +19,23 @@ function App() {
   });
 
   const [gnomes, setGnomes] = useState([]);
-  const [filteredGnomes, setFilteredGnomes] = useState([]);
-  const [filtered, setFiltered] = useState(false);
-  const [chipData, setChipData] = React.useState([
-    { key: 0, label: 'Has jobs', selected: false, gnomeField: "professions" },
-    { key: 1, label: 'Has friends', selected: false, gnomeField: "friends" },
-  ]);
-
-  const handleClick = (clickedChip) => () => {
-    setChipData((chips) => chips.map((chip) => {
-      if (chip.key !== clickedChip.key) {
-        return {...chip, selected: false}
-      }else {
-        setFiltered(!chip.selected);
-        return {...chip, selected: !chip.selected}
-      }
-    }))
-  };
-
-  const handleFilter = () => {
-    const [{gnomeField}] = chipData.filter(chip => chip.selected);
-    setFilteredGnomes(gnomes.filter(gnome => gnome[gnomeField].length>0))
-  }
+  const [extendedGnomes, setExtendedGnomes] = useState([]);
 
   useEffect(()=> {
-    const cachedResults = localStorage.getItem('myData');
-    if (cachedResults) {
-      setFilteredGnomes(JSON.parse(cachedResults));
-      setGnomes(JSON.parse(cachedResults));
-    } else {
-      ApiClient.getAllGnomes()
+    ApiClient.getInitialGnomes()
       .then(gnomes => {
-        setGnomes(gnomes.Brastlewark);
-        setFilteredGnomes(gnomes.Brastlewark);
+        setGnomes(gnomes);
       })
-    }
+      ApiClient.cacheGnomes();
+      ApiClient.getApiGnomes()
+        .then(gnomes => {
+          setExtendedGnomes(gnomes);
+        });
   }, []);
 
-  useEffect(() => filtered? handleFilter() : (gnomes)=>setFilteredGnomes(gnomes)
-    , [filtered])
 
   return (
-      <GnomeContext.Provider value={({gnomes, chipData, handleClick, filteredGnomes})}>
+      <GnomeContext.Provider value={({gnomes, extendedGnomes})}>
         <MuiThemeProvider theme={myTheme}>
             <div className="App">
               <Navbar />
