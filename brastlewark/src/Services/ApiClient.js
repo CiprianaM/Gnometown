@@ -37,7 +37,6 @@ const fetchRequest = (url) => {
       .then(res => res.json())
       .then(res=>{
         const {Brastlewark: response} = res;
-        console.log(response)
         return response;
       })
       .catch((err) => {
