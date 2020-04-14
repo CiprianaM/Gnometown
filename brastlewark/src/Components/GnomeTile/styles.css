@@ -5,7 +5,8 @@
   display: inline-block;
   text-align: center;
   /* flex-direction: row; */
-  margin-right: 10px;
+  margin-right: 7px;
+  margin-bottom: 7px;
   position: relative;
   align-self: center;
 }
