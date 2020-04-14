@@ -20,22 +20,34 @@ function App() {
 
   const [gnomes, setGnomes] = useState([]);
   const [extendedGnomes, setExtendedGnomes] = useState([]);
+  const [filteredGnomes, setFilteredGnomes] = useState('');
+
+  const handleChange = (event) => {
+    var updatedList = extendedGnomes;
+    updatedList = updatedList.filter(function(item){
+      return item.name.toLowerCase().search(
+        event.target.value.toLowerCase()) !== -1;
+    });
+    setFilteredGnomes(updatedList);
+  }
 
   useEffect(()=> {
     ApiClient.getInitialGnomes()
       .then(gnomes => {
-        setGnomes(gnomes);
+        setFilteredGnomes(gnomes);
       })
       ApiClient.cacheGnomes();
       ApiClient.getApiGnomes()
-        .then(gnomes => {
-          setExtendedGnomes(gnomes);
-        });
+      .then(gnomes => {
+        setExtendedGnomes(gnomes);
+      })
   }, []);
-
+  useEffect(() => {
+    setFilteredGnomes(extendedGnomes);
+  }, [extendedGnomes])
 
   return (
-      <GnomeContext.Provider value={({gnomes, extendedGnomes})}>
+      <GnomeContext.Provider value={({gnomes, handleChange, filteredGnomes, extendedGnomes})}>
         <MuiThemeProvider theme={myTheme}>
             <div className="App">
               <Navbar />
